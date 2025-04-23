@@ -7,7 +7,7 @@
 
 
 static const struct gpio_dt_spec led0 = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
-static const struct pwm_dt_spec pwm_led0 = PWM_DT_SPEC_GET(DT_ALIAS(pwm_led0));
+static const struct pwm_dt_spec pwm_led1 = PWM_DT_SPEC_GET(DT_ALIAS(pwm_led1));
 #define UART_DEVICE_NODE DT_NODELABEL(usart6)
 static const struct device *uart_dev = DEVICE_DT_GET(UART_DEVICE_NODE);
 
@@ -37,15 +37,15 @@ int main(void)
 		uart_poll_out(uart_dev, data[i]);
 	}
 
-	if (!pwm_is_ready_dt(&pwm_led0)) {
+	if (!pwm_is_ready_dt(&pwm_led1)) {
 		printk("Error: PWM device %s is not ready\n",
-			   pwm_led0.dev->name);
+			   pwm_led1.dev->name);
 		return 0;
 	}
 
-	printk("Calibrating for channel %d...\n", pwm_led0.channel);
+	printk("Calibrating for channel %d...\n", pwm_led1.channel);
 	uint32_t max_period = MAX_PERIOD;
-	while (pwm_set_dt(&pwm_led0, max_period, max_period / 2U)) {
+	while (pwm_set_dt(&pwm_led1, max_period, max_period / 2U)) {
 		max_period /= 2U;
 		if (max_period < (4U * MIN_PERIOD)) {
 			printk("Error: PWM device "
@@ -63,7 +63,7 @@ int main(void)
 	while (1) {
 
 
-		ret = pwm_set_dt(&pwm_led0, period, period / 2U);
+		ret = pwm_set_dt(&pwm_led1, period, period / 2U);
 		if (ret) {
 			printk("Error %d: failed to set pulse width\n", ret);
 			return 0;
