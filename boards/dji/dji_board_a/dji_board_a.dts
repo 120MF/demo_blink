@@ -1,11 +1,11 @@
 /dts-v1/;
-#include <st/f4/stm32f407Xg.dtsi>
-#include <st/f4/stm32f407i(e-g)hx-pinctrl.dtsi>
+#include <st/f4/stm32f427Xi.dtsi>
+#include <st/f4/stm32f427i(e-g)hx-pinctrl.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <zephyr/dt-bindings/led/led.h>
 
 / {
-	model = "DJI RoboMaster Development Board C";
+	model = "DJI RoboMaster Development Board A";
 	compatible = "st";
 
 	chosen {
