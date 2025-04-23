@@ -2,34 +2,19 @@
 #include <st/f4/stm32f407Xg.dtsi>
 #include <st/f4/stm32f407i(e-g)hx-pinctrl.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/led/led.h>
 
 / {
 	model = "DJI RoboMaster Development Board C";
 	compatible = "st";
 
 	chosen {
-		zephyr,console = &usart6;
-		zephyr,shell-uart = &usart6;
+		zephyr,console = &usart1;
+		zephyr,shell-uart = &usart1;
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 		zephyr,ccm = &ccm0;
 		zephyr,canbus = &can1;
-	};
-
-	leds {
-		compatible = "gpio-leds";
-		blue_led: blue_led {
-			gpios = <&gpioh 10 GPIO_ACTIVE_HIGH>;
-			label = "Blue GPIO LED";
-		};
-		green_led: green_led {
-			gpios = <&gpioh 11 GPIO_ACTIVE_HIGH>;
-			label = "Green GPIO LED";
-		};
-		red_led: red_led {
-			gpios = <&gpioh 12 GPIO_ACTIVE_HIGH>;
-			label = "Red GPIO LED";
-		};
 	};
 
 	pwmleds: pwmleds {
@@ -50,9 +35,6 @@
 	};
 
 	aliases {
-		led0 = &blue_led;
-		led1 = &green_led;
-		led2 = &red_led;
 		pwm-led0 = &blue_pwm_led;
 		pwm-led1 = &green_pwm_led;
 		pwm-led2 = &red_pwm_led;
@@ -103,6 +85,9 @@
 	pinctrl-0 = <&usart1_tx_pa9 &usart1_rx_pb7>;
 	pinctrl-names = "default";
 	current-speed = <115200>;
+	dmas = <&dma2 5 (STM32_DMA_PERIPH_TX | STM32_DMA_PRIORITY_HIGH)>,
+		   <&dma2 7 (STM32_DMA_PERIPH_RX | STM32_DMA_PRIORITY_HIGH)>;
+	dma-names = "tx", "rx";
 	status = "okay";
 };
 
