@@ -96,6 +96,13 @@
 	status = "okay";
 };
 
+&usart1 {
+	pinctrl-0 = <&usart1_tx_pa9 &usart1_rx_pb7>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
+};
+
 &timers5 {
 	status = "okay";
 
@@ -116,11 +123,11 @@
 	};
 };
 
-zephyr_udc0: &usbotg_fs {
-	pinctrl-0 = <&usb_otg_fs_dm_pa11 &usb_otg_fs_dp_pa12>;
-	pinctrl-names = "default";
-	status = "okay";
-};
+//zephyr_udc0: &usbotg_fs {
+//	pinctrl-0 = <&usb_otg_fs_dm_pa11 &usb_otg_fs_dp_pa12>;
+//	pinctrl-names = "default";
+//	status = "okay";
+//};
 
 &can1 {
 	pinctrl-0 = <&can1_rx_pd0 &can1_tx_pd1>;
